@@ -1,0 +1,34 @@
+{
+  "name": "web_project_around_express",
+  "version": "1.0.0",
+  "description": "# Proyecto Backend: Alrededor de los EE. UU. Este repositorio contiene el código del servidor backend para el proyecto **\"Alrededor de los EE. UU.\"**. El objetivo de este proyecto es crear un servidor con una API que permita gestionar datos de usuarios y tarjetas, implementar autenticación y autorización, y desplegar el servidor en una máquina remota.",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dcvsesh/web_project_around_express.git"
+  },
+  "author": "Susana Sanchez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dcvsesh/web_project_around_express/issues"
+  },
+  "homepage": "https://github.com/dcvsesh/web_project_around_express#readme",
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.31.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.12.1",
+    "nodemon": "^3.1.9"
+  }
+}
