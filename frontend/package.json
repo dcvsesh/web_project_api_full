@@ -7,7 +7,8 @@
     "dev": "vite --open",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "scp -r -i /Users/susanasanchez/.ssh/id_ed25519.pub ./dist/* dcv.ssanchez@aroundthe.chickenkiller.com:/home/dcv.ssanchez@around/web_project_around_api/frontend/dist;"
   },
   "dependencies": {
     "react": "^18.3.1",

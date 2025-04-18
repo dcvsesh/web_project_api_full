@@ -8,7 +8,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
 import Login from "./Login";
 import Register from "./Register";
-import { signIn, signUp, userInfo } from "../utils/auth";
+import {auth} from "../utils/auth";
 import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
@@ -103,7 +103,7 @@ function App() {
 
   //REGISTER
   const handleRegistration = (email, password) => {
-    return signUp(email, password)
+    return auth.signUp(email, password)
       .then((response) => {
         if (response && response.error) {
           console.error("Error de registro:", response.error);
@@ -119,7 +119,7 @@ function App() {
 
   //LOGIN
   const handleLogin = (email, password) => {
-    signIn(email, password).then((response) => {
+    auth.signIn(email, password).then((response) => {
       if (response.error) {
         setIsLoggedIn(false);
         console.error(response.error);

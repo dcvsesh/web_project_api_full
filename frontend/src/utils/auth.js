@@ -20,7 +20,7 @@ export const auth = {
   isLoggedIn() {
     return !!this.getToken();
   },
-  
+
  // Registro de usuario
  async signUp(email, password) {
   try {
