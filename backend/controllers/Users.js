@@ -2,89 +2,67 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const jwt = require('jsonwebtoken');
+const {
+  BadRequestError,
+  UnauthorizedError,
+  NotFoundError,
+  ConflictError,
+  ValidationError,
+  InternalServerError
+} = require('../middlewares/errors');
 
-
-const getUsers = async (req, res) => {
+const getUsers = async (req, res, next) => {
   try {
     const users = await User.find({}).select('-password').orFail(() => {
-      const error = new Error("No se encontraron usuarios");
-      error.statusCode = 404;
-      throw error;
+      throw new NotFoundError("No se encontraron usuarios");
     });
     res.json(users);
   } catch (error) {
-    if (error.statusCode === 404) {
-      return res.status(404).json({ message: error.message });
-    }
-    res.status(500).json({ message: "Error al obtener a los usuarios", error: error.message });
+    next(error);
   }
 };
 
-const getUserId = async (req, res) => {
+const getUserId = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.userId).select('-password').orFail(() => {
-      const error = new Error("Usuario no encontrado");
-      error.statusCode = 404;
-      throw error;
+      throw new NotFoundError("Usuario no encontrado");
     });
     res.json(user);
   } catch (error) {
-    if (error.statusCode === 404) {
-      return res.status(404).json({ message: error.message });
-    }
     if (error.name === 'CastError') {
-      return res.status(400).json({ message: "ID de usuario no válido" });
+      next(new BadRequestError("ID de usuario no válido"));
+    } else {
+      next(error);
     }
-    res.status(500).json({ message: "Error al buscar usuario", error: error.message });
   }
 };
 
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   try {
     const { name, about, avatar, email, password } = req.body;
 
-    // Verificar si el email ya existe
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(409).json({
-        message: "El correo electrónico ya está registrado"
-      });
+      throw new ConflictError("El correo electrónico ya está registrado");
     }
 
-    // Crear el usuario (el hash se maneja en el pre-save hook del modelo)
-    const user = await User.create({
-      name,
-      about,
-      avatar,
-      email,
-      password
-    });
-    // No devolver la contraseña en la respuesta
+    const user = await User.create({ name, about, avatar, email, password });
     const userResponse = user.toObject();
     delete userResponse.password;
+
     res.status(201).json(userResponse);
   } catch (error) {
     if (error.name === 'ValidationError') {
-      // Manejo de errores de validación de Mongoose
-      return res.status(400).json({
-        message: "Datos de usuario no válidos",
-        errors: error.errors
-      });
+      next(new ValidationError("Datos de usuario no válidos", error.errors));
     } else if (error.code === 11000) {
-      // Error de duplicado (por si acaso el unique no se captura antes)
-      return res.status(409).json({
-        message: "El correo electrónico ya está registrado"
-      });
+      next(new ConflictError("El correo electrónico ya está registrado"));
+    } else {
+      next(new InternalServerError("Error al crear usuario"));
     }
-    // Error genérico del servidor
-    console.error("Error al crear usuario:", error);
-    res.status(500).json({
-      message: "Error interno del servidor al crear usuario"
-    });
   }
 };
 
-const updateUserProfile = async (req, res) => {
+const updateUserProfile = async (req, res, next) => {
   try {
     const { name, about } = req.body;
     const updatedUser = await User.findByIdAndUpdate(
@@ -92,28 +70,26 @@ const updateUserProfile = async (req, res) => {
       { name, about },
       { new: true, runValidators: true }
     ).select('-password').orFail(() => {
-      const error = new Error("Usuario no encontrado");
-      error.statusCode = 404;
-      throw error;
+      throw new NotFoundError("Usuario no encontrado");
     });
+
     res.json(updatedUser);
   } catch (error) {
-    if (error.statusCode === 404) {
-      return res.status(404).json({ message: error.message });
-    }
     if (error.name === 'ValidationError') {
-      return res.status(400).json({ message: "Datos de perfil no válidos", error: error.message });
+      next(new ValidationError("Datos de perfil no válidos", error.errors));
+    } else {
+      next(error);
     }
-    res.status(500).json({ message: "Error al actualizar el perfil", error: error.message });
   }
 };
 
-const updateUserAvatar = async (req, res) => {
+
+const updateUserAvatar = async (req, res, next) => {
   try {
     const { avatar } = req.body;
 
     if (!validator.isURL(avatar)) {
-      return res.status(400).json({ message: "La URL del avatar no es válida" });
+      throw new BadRequestError("La URL del avatar no es válida");
     }
 
     const updatedAvatar = await User.findByIdAndUpdate(
@@ -121,85 +97,57 @@ const updateUserAvatar = async (req, res) => {
       { avatar },
       { new: true, runValidators: true }
     ).select('-password').orFail(() => {
-      const error = new Error("Usuario no encontrado");
-      error.statusCode = 404;
-      throw error;
+      throw new NotFoundError("Usuario no encontrado");
     });
+
     res.json(updatedAvatar);
   } catch (error) {
-    if (error.statusCode === 404) {
-      return res.status(404).json({ message: error.message });
-    }
     if (error.name === 'ValidationError') {
-      return res.status(400).json({ message: "URL de avatar no válida", error: error.message });
+      next(new ValidationError("URL de avatar no válida", error.errors));
+    } else {
+      next(error);
     }
-    res.status(500).json({ message: "Error al actualizar el avatar", error: error.message });
   }
 };
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    // Validar que se proporcionen email y contraseña
     if (!email || !password) {
-      return res.status(400).json({
-        message: "Email y contraseña son requeridos"
-      });
+      throw new BadRequestError("Email y contraseña son requeridos");
     }
 
-    // Buscar usuario incluyendo la contraseña (que normalmente está select: false)
     const user = await User.findOne({ email }).select('+password');
-
     if (!user) {
-      return res.status(401).json({
-        message: "Credenciales incorrectas"
-      });
+      throw new UnauthorizedError("Credenciales incorrectas");
     }
 
-    // Comparar contraseñas
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({
-        message: "Credenciales incorrectas"
-      });
+      throw new UnauthorizedError("Credenciales incorrectas");
     }
 
-    // Crear token JWT (expira en 7 días)
     const token = jwt.sign(
       { _id: user._id },
       process.env.JWT_SECRET || 'tu-secreto-seguro',
       { expiresIn: '7d' }
     );
 
-    // Enviar token al cliente
     res.json({ token });
-
   } catch (error) {
-    console.error("Error en login:", error);
-    res.status(500).json({
-      message: "Error interno del servidor durante el login"
-    });
+    next(error);
   }
 };
 
-const getCurrentUser = async (req, res) => {
+const getCurrentUser = async (req, res, next) => {
   try {
-    // req.user._id viene del middleware de autenticación
     const user = await User.findById(req.user._id).select('-password').orFail(() => {
-      const error = new Error("Usuario no encontrado");
-      error.statusCode = 404;
-      throw error;
+      throw new NotFoundError("Usuario no encontrado");
     });
     res.json(user);
   } catch (error) {
-    if (error.statusCode === 404) {
-      return res.status(404).json({ message: error.message });
-    }
-    res.status(500).json({
-      message: "Error al obtener información del usuario",
-      error: error.message
-    });
+    next(error);
   }
 };
 
@@ -211,5 +159,5 @@ module.exports = {
   updateUserProfile,
   updateUserAvatar,
   login,
-  getCurrentUser 
+  getCurrentUser
 };

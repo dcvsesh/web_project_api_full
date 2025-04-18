@@ -4,6 +4,9 @@ const cardsRouter = require("./routes/cards");
 const mongoose = require('mongoose');
 const { createUser, login } = require('./controllers/Users');
 const auth = require('./middlewares/auth');
+const errorHandler = require('./middlewares/errorHandler');
+const { NotFoundError } = require('./middlewares/errors'); // Importa el error personalizado
+const { requestLogger, errorLogger } = require('./middlewares/logging');
 
 const app = express();
 const PORT = 3000;
@@ -14,21 +17,27 @@ mongoose.connect("mongodb://localhost:27017/aroundb", {})
 
 // Middlewares
 app.use(express.json());
+app.use(requestLogger);
 
 app.post('/signup', createUser);
 app.post('/signin', login);
 
 // Middlewares de Autenticación
-app.use(auth); // Todas las rutas siguientes requerirán autenticación
+app.use(auth);
 
 // Middlewares Rutas Protegidas
 app.use("/users", usersRouter);
 app.use("/cards", cardsRouter);
 
-// Manejo de rutas no encontradas (protegida)
-app.use((req, res) => {
-  res.status(404).send({ message: "Recurso solicitado no encontrado" });
+
+// Middleware para rutas no encontradas (404)
+app.use((req, res, next) => {
+  next(new NotFoundError('Recurso solicitado no encontrado'));
 });
+
+app.use(errorLogger);
+// Middleware de manejo centralizado de errores
+app.use(errorHandler);
 
 // Iniciar servidor
 app.listen(PORT, () => {

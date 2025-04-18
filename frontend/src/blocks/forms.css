@@ -1,0 +1,156 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.popup__form {
+  display: contents;
+}
+
+.popup__form_content{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.form__field {
+  background-color: white;
+  display: flex;
+  height: 36px;
+  flex-direction: column;
+  padding: 0 35px;
+  padding-bottom: 30px;
+}
+
+.popup__button-close {
+  background: transparent;
+  border: none;
+  position: relative;
+  padding: 0;
+  left: 30px;
+}
+
+.popup__button-close:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.popup__form-fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
+}
+
+.input__text {
+  border: none;
+  border-bottom: 1px solid #c4c4c4;
+  font-family: "Inter-regular";
+  font-size: 14px;
+  height: 28px;
+}
+
+.popup_submit-button {
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 0 35px;
+}
+
+.popup__form-button {
+  border-radius: 2px;
+  height: 50px;
+  margin-top: 18px;
+  font-family: "Inter-regular";
+  color: white;
+  font-size: 18px;
+  background-color: black;
+  border-width: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.popup__form-button:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+/*Error en Formulario y boton inactivo*/
+.button_submit_inactive {
+  background-color: white;
+  cursor: default;
+  color: #c4c4c4;
+  border-color: #cccccc;
+}
+
+.form__input-error {
+  margin-top: 33px;
+  position: absolute;
+  font-family: "Inter-regular";
+  font-size: 12px;
+  color: red;
+  opacity: 0;
+  transition: 0.3s;
+  margin-right: 32px;
+}
+
+.form__input-error_active {
+  opacity: 1;
+}
+
+.form__input_type_error {
+  border-bottom: 1px solid red;
+  height: 28px;
+}
+
+@media (max-width: 900px) {
+  .popup__button-close {
+    left: 0;
+  }
+}
+
+@media (max-width: 630px) {
+  .popup__button-close-image {
+    width: 26px;
+    margin-bottom: 13px;
+  }
+  .popup__title {
+    padding: 0 22px;
+    font-size: 18px;
+    width: 238px;
+    padding-top: 25px;
+    padding-bottom: 76px;
+  }
+  .input__text {
+    margin-bottom: 30px;
+    height: 26px;
+    padding-bottom: 5px;
+  }
+
+  .popup__form-button {
+    height: 46px;
+    margin-top: 16px;
+    font-size: 14px;
+  }
+  .form__field {
+    padding: 0 22px;
+    height: 28px;
+    padding-bottom: 30px;
+  }
+  .form__input-error {
+    font-size: 10px;
+    margin-top: 24px;
+    margin-right: 22px;
+  }
+  .popup_submit-button {
+    padding: 0 22px;
+  }
+}
