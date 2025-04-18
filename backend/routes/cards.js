@@ -3,8 +3,8 @@ const router = express.Router();
 const {getCards, createCard, deleteCard, likeCard, dislikeCard} = require("../controllers/Cards")
 const auth = require('../middlewares/auth');
 const {
-  validateCardCreation,
-  validateObjectId
+  validateCardId,
+  validateCardCreation
 } = require('../middlewares/validation');
 
 // Todas las rutas de cards requieren autenticación
