@@ -6,19 +6,13 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-/logs/
+
 node_modules
 dist
 dist-ssr
 *.local
 
-# Directorio de dependencias
-node_modules
-
-# Directorio de cache npm opcional
-.npm
-
-# Archivos de sistema y carpetas de ajustes IDE
+# Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -28,8 +22,3 @@ node_modules
 *.njsproj
 *.sln
 *.sw?
-
-
-.env
-node_modules/
-frontend/build/

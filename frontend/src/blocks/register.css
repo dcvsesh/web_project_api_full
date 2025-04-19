@@ -1,0 +1,124 @@
+.register{
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register_title{
+  font-family: "Inter-black";
+  font-size: 24px;
+  color: white;
+  margin-top: 60px;
+  margin-bottom: 50px;
+}
+
+.register_button{
+  margin-top: 186px;
+  margin-bottom: 15px;
+  background-color: white;
+  font-family: "Inter-regular";
+  font-size: 18px;
+  width: 358px;
+  height: 50px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.4s ease;
+}
+
+.register_button:active {
+  opacity: 0.8;
+}
+
+.register_signin_link{
+  margin-top: 0;
+  font-family: "Inter-regular";
+  font-size: 14px;
+  color: white;
+  margin-bottom: 80px;
+  justify-content: flex-end
+}
+
+.signin_link{
+  font-family: "Inter-regular";
+  color: white;
+  text-decoration: none;
+}
+
+.input__text_email{
+  font-family: "Inter-regular";
+  color: white;
+  width: 350px;
+  margin: 0;
+  margin-bottom: 30px;
+  height: 27px;
+  background-color: black;
+  padding-bottom: 5px;
+  font-size: 14px;
+}
+
+.input__text_password{
+  font-family: "Inter-regular";
+  color: white;
+  width: 350px;
+  margin: 0;
+  margin-bottom: 30px;
+  height: 27px;
+  background-color: black;
+  padding-bottom: 5px;
+  font-size: 14px;
+}
+
+.form__input-error {
+  margin-top: 33px;
+  position: absolute;
+  font-family: "Inter-regular";
+  font-size: 12px;
+  color: red;
+  opacity: 0;
+  transition: 0.3s;
+  margin-right: 32px;
+}
+
+.form__input-error_active {
+  opacity: 1;
+}
+
+.form__input_type_error {
+  border-bottom: 1px solid red;
+  height: 28px;
+}
+
+
+@media (max-width: 630px) {
+  .register_title{
+    font-size: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .register_button{
+    margin-top: 173px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    width: 260px;
+    height: 46px;
+  }
+  .register__form{
+ align-items: center;
+  }
+
+  .input__text_email{
+    width: 260px;
+  }
+
+  .input__text_password{
+    width: 260px;
+  }
+
+  .register_signin_link{
+    font-size: 12px;
+    margin-bottom: 42px;
+  }
+
+}

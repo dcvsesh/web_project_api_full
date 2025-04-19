@@ -1,0 +1,33 @@
+.footer {
+  width: 880px;
+  background-color: #000;
+  display: flex;
+  color: #545454;
+  justify-content: flex-start;
+}
+
+.footer__copyright {
+  margin-top: 67px;
+  margin-bottom: 60px;
+  display: flex;
+  font-family: "Inter-regular";
+  font-size: 18px;
+}
+
+@media (max-width: 900px) {
+  .footer__copyright {
+    margin-left: 19px;
+  }
+  .footer {
+    width: 100%;
+  }
+}
+
+@media (max-width: 630px) {
+  .footer__copyright {
+    margin-top: 50px;
+    margin-left: 19px;
+    margin-bottom: 36px;
+    font-size: 14px;
+  }
+}
