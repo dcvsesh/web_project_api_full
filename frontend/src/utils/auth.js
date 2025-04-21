@@ -1,4 +1,4 @@
-const BASE_URL = 'https://se-register-api.en.tripleten-services.com/v1';
+const BASE_URL = 'https://api.aroundthe.chickenkiller.com';
 
 export const signUp = async (email, password) => {
   try {
@@ -44,6 +44,8 @@ export const signIn = async (email, password) => {
         error: data.message || `Error ${response.status}: Inicio de Sesion Fallido`,
       };
     }
+    // Guardamos el token en localStorage para su posterior uso
+    localStorage.setItem('token', data.token);
     return data;
   } catch (err) {
     return {
