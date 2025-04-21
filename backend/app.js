@@ -9,7 +9,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('cors');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 // Conexión a MongoDB
 mongoose.connect("mongodb://localhost:27017/aroundb",{})
