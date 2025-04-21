@@ -93,4 +93,4 @@ _processResponse(res) {
   }
 }
 
-export const api =  new Api("https://around-api.es.tripleten-services.com/v1/");
+export const api = new Api("https://api.aroundthe.chickenkiller.com/");
