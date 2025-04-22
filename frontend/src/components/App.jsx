@@ -66,29 +66,27 @@ const loadCards = () => {
     });
 };
 
-  const handleUpdateUser = (data) => {
-    (async () => {
-      await api
-        .setUserInfo(data)
-        .then((newData) => {
-          setCurrentUser(newData);
-          handleClosePopup();
-          return api.getUserInfo();
-        })
-        .catch((error) => console.error(error));
-    })();
-  };
+const handleUpdateUser = (data) => {
+  api
+    .setUserInfo(data) // actualiza en el servidor
+    .then(() => api.getUserInfo()) // vuelve a consultar los datos actualizados
+    .then((newData) => {
+      setCurrentUser(newData); // actualiza el estado
+      handleClosePopup(); // cierra el popup
+    })
+    .catch((error) => console.error("Error actualizando perfil:", error));
+};
 
-  const handleUpdateAvatar = (data) => {
-    api
-      .profileImage(data)
-      .then((newData) => {
-        setCurrentUser(newData); // Actualizar el estado del usuario actual
-        handleClosePopup(); // Cerrar el popup después de actualizar
-        return api.profileImage();
-      })
-      .catch((error) => console.error(error));
-  };
+const handleUpdateAvatar = (data) => {
+  api
+    .profileImage(data) // actualiza en el servidor
+    .then(() => api.getUserInfo()) // vuelve a consultar los datos actualizados
+    .then((newData) => {
+      setCurrentUser(newData);
+      handleClosePopup();
+    })
+    .catch((error) => console.error("Error actualizando avatar:", error));
+};
 
   //Popup
   function handleOpenPopup(popup) {
