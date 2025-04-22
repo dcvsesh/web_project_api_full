@@ -10,7 +10,7 @@ import Card from "./components/Card";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function Main({
-  cards,
+  cards=[],
   onCardLike,
   onCardDelete,
   onOpenPopup,
