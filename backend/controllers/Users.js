@@ -43,7 +43,7 @@ const createUser = async (req, res) => {
     const newUser = new User({
       name: name || 'Jacques Cousteau',
       about: about || 'Explorador',
-      avatar: avatar || 'https://ejemplo.com/avatar-default.jpg',
+      avatar: avatar || 'https://hips.hearstapps.com/hmg-prod/images/leighton-meester-attends-los-angeles-special-screening-of-news-photo-1608631629.?crop=1xw:0.49906xh;center,top&resize=1200:*',
       email,
       password: hashedPassword,
     });
