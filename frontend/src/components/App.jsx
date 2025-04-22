@@ -19,7 +19,7 @@ function App() {
 
  // Verificar autenticación al cargar la app
  useEffect(() => {
-  const token = localStorage.getItem("jwtToken");
+  const token = localStorage.getItem("token");
   if (token) {
     checkToken(token);
   }
