@@ -77,7 +77,7 @@ export default function Main({
       </section>
       <section className="cards">
         <ul className="cards__content">
-        {cards.map((card) => (
+        {cards?.map((card) => (
             <Card
               key={card._id}
               card={card}
