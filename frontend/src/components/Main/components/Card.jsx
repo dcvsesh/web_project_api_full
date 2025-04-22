@@ -4,9 +4,10 @@ import { CurrentUserContext } from "../../../contexts/CurrentUserContext";
 import { useContext } from "react";
 
 export default function Card(props) {
-  const { name, link, isLiked} = props.card;
+  const { name, link, likes } = props.card;
   const { handleOpenPopup, onCardLike,onCardDelete } = props;
   const { currentUser } = useContext(CurrentUserContext);
+  const isLiked = likes.includes(currentUser._id);
 
   const imageComponent = {
     title: "",
@@ -15,9 +16,9 @@ export default function Card(props) {
 
   //Cartas
   // Verifica si el usuario actual le ha dado "like" a la tarjeta
-  const cardLikeButtonClassName = `cards__hearth-button ${
-    isLiked ? "cards__hearth-button_active" : ""
-  }`;
+const cardLikeButtonClassName = `cards__hearth-button ${
+  isLiked ? "cards__hearth-button_active" : ""
+}`;
 
   const handleLikeClick = () => {
       onCardLike(props.card);
@@ -30,7 +31,7 @@ export default function Card(props) {
     <li className="cards__item">
       <img
         src={link}
-        alt={`Imagen de ${name}`} 
+        alt={`Imagen de ${name}`}
         className="cards__image"
         onClick={() => handleOpenPopup(imageComponent)}
       ></img>
