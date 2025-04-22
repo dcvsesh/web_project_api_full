@@ -159,7 +159,7 @@ const handleUpdateAvatar = (data) => {
         if (response.error) {
           throw new Error(response.error);
         }
-        localStorage.setItem("jwtToken", response.token);
+        localStorage.setItem("token", response.token);
         api.setAuthToken(response.token);
         setIsLoggedIn(true);
         return api.getUserInfo();
@@ -174,7 +174,7 @@ const handleUpdateAvatar = (data) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("token");
     api.clearAuthToken();
     setIsLoggedIn(false);
     setCurrentUser({});
