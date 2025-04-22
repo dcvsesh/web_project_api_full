@@ -73,6 +73,7 @@ const loadCards = () => {
         .then((newData) => {
           setCurrentUser(newData);
           handleClosePopup();
+          return api.getUserInfo();
         })
         .catch((error) => console.error(error));
     })();
@@ -84,6 +85,7 @@ const loadCards = () => {
       .then((newData) => {
         setCurrentUser(newData); // Actualizar el estado del usuario actual
         handleClosePopup(); // Cerrar el popup después de actualizar
+        return api.profileImage();
       })
       .catch((error) => console.error(error));
   };

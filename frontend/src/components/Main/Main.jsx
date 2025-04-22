@@ -39,20 +39,22 @@ export default function Main({
     <main className="content">
       <section className="profile">
         <div className="profile__column">
-        {currentUser && (
-          <div
-            className="profile__avatar-edit"
-            onClick={() => onOpenPopup(editAvatarPopup)}
-          >
-            <img
-              src={currentUser.avatar}
-              alt="Imagen de Perfil Avatar"
-              className="profile__avatar"
-            />
-          </div>
-          )}
+        {currentUser?.avatar && (
+  <div
+    className="profile__avatar-edit"
+    onClick={() => onOpenPopup(editAvatarPopup)}
+  >
+    <img
+      src={currentUser.avatar}
+      alt="Imagen de Perfil Avatar"
+      className="profile__avatar"
+    />
+  </div>
+)}
           <div className="profile__info">
-            <h2 className="profile__info_title">{currentUser.name}</h2>
+          <h2 className="profile__info_title">
+  {currentUser?.name || "Cargando..."}
+</h2>
             <button
               className="profile__edit-button"
               type="button"
@@ -65,7 +67,9 @@ export default function Main({
                 className="profile__edit-button-image"
               />
             </button>
-            <p className="profile__info_subtitle">{currentUser.about}</p>
+            <p className="profile__info_subtitle">
+  {currentUser?.about || "Cargando..."}
+</p>
           </div>
         </div>
         <button
