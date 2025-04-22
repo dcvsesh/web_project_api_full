@@ -28,7 +28,7 @@ class Api {
     if (token) {
       this.setAuthToken(token);  // Establece el token en las cabeceras
     }
-    return fetch(`${this.baseUrl}/users/me`, { 
+    return fetch(`${this.baseUrl}/users/me`, {
       headers: this.headers,
       method: "GET",
     })
@@ -128,4 +128,4 @@ class Api {
 }
 
 // Instancia de la clase Api
-export const api = new Api("https://api.aroundthe.chickenkiller.com/");
+export const api = new Api("https://aroundthe.chickenkiller.com");

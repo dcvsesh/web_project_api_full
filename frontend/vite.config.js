@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    host: true,  // Esto hace que Vite escuche en todas las interfaces de red
+    host: true, 
     allowedHosts: ['aroundthe.chickenkiller.com', 'www.aroundthe.chickenkiller.com'] // Aquí agregas tus dominios
   },
 });
