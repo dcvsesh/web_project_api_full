@@ -130,7 +130,7 @@ const handleUpdateAvatar = (data) => {
     api
       .createCard(data.name, data.link)
       .then((newCard) => {
-        setCards((prevCards) => [newCard, ...prevCards]);
+        setCards([newCard, ...cards]);
         handleClosePopup();
       })
       .catch((error) => console.error(error));
