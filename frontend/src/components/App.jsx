@@ -59,7 +59,7 @@ const loadUserData = () => {
 const loadCards = () => {
   api.getInitialCards()
     .then((data) => {
-      setCards(data);
+      setCards([newCard, ...data]);
     })
     .catch((error) => {
       console.error("Error al cargar las cartas:", error);
