@@ -59,7 +59,7 @@ const loadUserData = () => {
 const loadCards = () => {
   api.getInitialCards()
     .then((data) => {
-      setCards([newCard, ...data]);
+      setCards(data);
     })
     .catch((error) => {
       console.error("Error al cargar las cartas:", error);
@@ -130,7 +130,7 @@ const handleUpdateAvatar = (data) => {
     api
       .createCard(data.name, data.link)
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        setCards((prevCards) => [newCard, ...prevCards]);
         handleClosePopup();
       })
       .catch((error) => console.error(error));
