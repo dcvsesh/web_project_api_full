@@ -1,7 +1,7 @@
 import avatar from "../../images/avatar.jpg";
 import editButton from "../../images/edit_button.png";
 import addButton from "../../images/add.svg";
-import {useContext } from "react";
+import { useContext } from "react";
 import NewCard from "../Form/NewCard/NewCard";
 import Popup from "./components/Popup";
 import EditAvatar from "../Form/EditAvatar/EditAvatar";
@@ -10,25 +10,29 @@ import Card from "./components/Card";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function Main({
-  cards=[],
+  cards = [],
   onCardLike,
   onCardDelete,
   onOpenPopup,
   onClosePopup,
   onAddPlaceSubmit,
-  popup,}
-) {
-
+  popup,
+}) {
   const { currentUser } = useContext(CurrentUserContext);
 
-  const newCardPopup = { title: "Nuevo Lugar", children: <NewCard onAddPlaceSubmit={onAddPlaceSubmit} onClose={onClosePopup} /> };
+  const newCardPopup = {
+    title: "Nuevo Lugar",
+    children: (
+      <NewCard onAddPlaceSubmit={onAddPlaceSubmit} onClose={onClosePopup} />
+    ),
+  };
   const editAvatarPopup = {
     title: "Cambiar foto de perfil",
     children: <EditAvatar onClose={onClosePopup} />,
   };
   const editProfilePopup = {
     title: "Editar Perfil",
-    children: <EditProfile onClose={onClosePopup}/>,
+    children: <EditProfile onClose={onClosePopup} />,
   };
 
   return (
@@ -77,15 +81,17 @@ export default function Main({
       </section>
       <section className="cards">
         <ul className="cards__content">
-        {cards?.map((card) => (
-            <Card
-              key={card._id}
-              card={card}
-              onCardLike={onCardLike}
-              onCardDelete={onCardDelete}
-              handleOpenPopup={onOpenPopup}
-            />
-          ))}
+          {Array.isArray(cards) &&
+            cards.length > 0 &&
+            cards?.map((card) => (
+              <Card
+                key={card._id}
+                card={card}
+                onCardLike={onCardLike}
+                onCardDelete={onCardDelete}
+                handleOpenPopup={onOpenPopup}
+              />
+            ))}
         </ul>
       </section>
 
