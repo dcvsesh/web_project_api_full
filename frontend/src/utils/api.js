@@ -128,4 +128,4 @@ class Api {
 }
 
 // Instancia de la clase Api
-export const api = new Api("https://api.aroundthe.chickenkiller.com");
+export const api = new Api("https://aroundthe.chickenkiller.com");
