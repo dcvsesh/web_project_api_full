@@ -58,12 +58,14 @@ const loadUserData = () => {
 
 const loadCards = () => {
   api.getInitialCards()
-    .then((data) => {
-      setCards(data);
-    })
-    .catch((error) => {
-      console.error("Error al cargar las cartas:", error);
-    });
+  .then((data) => {
+    // Asegúrate de ordenar las cartas por la fecha de creación, de más reciente a más antigua
+    const sortedCards = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    setCards(sortedCards);
+  })
+  .catch((error) => {
+    console.error("Error al cargar las cartas:", error);
+  });
 };
 
 const handleUpdateUser = (data) => {
