@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.aroundthe.chickenkiller.com';
+const BASE_URL = 'http://api.aroundworld.crabdance.com';
 
 export const signUp = async (email, password) => {
   try {
