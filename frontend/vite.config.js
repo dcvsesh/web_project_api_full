@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    host: true, 
-    allowedHosts: ['aroundthe.chickenkiller.com', 'www.aroundthe.chickenkiller.com'] // Aquí agregas tus dominios
+    host: true,
+    allowedHosts: ['aroundworld.crabdance.com', 'www.aroundworld.crabdance.com'] // Aquí agregas tus dominios
   },
 });
