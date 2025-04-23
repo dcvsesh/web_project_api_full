@@ -1,4 +1,4 @@
-const BASE_URL = 'https://aroundthe.chickenkiller.com';
+const BASE_URL = 'https://api.aroundthe.chickenkiller.com';
 
 export const signUp = async (email, password) => {
   try {
@@ -57,7 +57,7 @@ export const signIn = async (email, password) => {
 export const userInfo = async (email, password) => {
   const token = localStorage.getItem("token");
   try {
-    const response = await fetch(`${BASE_URL}/users/me`, {  // Usa comillas invertidas
+    const response = await fetch(`${BASE_URL}/users/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
