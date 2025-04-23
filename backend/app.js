@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const usersRouter = require("./routes/users");
 const cardsRouter = require("./routes/cards");
@@ -9,7 +10,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('cors');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // Conexión a MongoDB
 mongoose.connect("mongodb://localhost:27017/aroundb",{})
