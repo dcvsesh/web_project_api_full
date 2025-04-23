@@ -128,4 +128,4 @@ class Api {
 }
 
 // Instancia de la clase Api
-export const api = new Api("http://api.aroundworld.crabdance.com");
+export const api = new Api("https://api.aroundworld.crabdance.com");
